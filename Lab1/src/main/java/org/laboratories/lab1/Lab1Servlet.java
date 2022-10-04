@@ -69,11 +69,16 @@ public class Lab1Servlet extends HttpServlet {
         out.println("</br>");
 
         int size = Integer.parseInt(request.getParameter(HOMEWORK_PARAM_NAME));
-        if (size == 0 || size > word.length())
+        if (size > word.length())
             size = word.length();
         Set<String> result = new HashSet<>();
-        permutation(word, size, result);
-
+        if (size == 0) {
+            for (int i = 1; i <= word.length(); i++) {
+                permutation(word, i, result);
+            }
+        } else {
+            permutation(word, size, result);
+        }
         out.println("<h3>" + "All the permutations of length " + size + " of word " + word + " are: " + result + "</h3>");
         out.println("<br/>");
         result = result.stream().map(String::toUpperCase).collect(Collectors.toSet());

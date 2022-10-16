@@ -8,7 +8,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,8 +21,7 @@ public class Lab2Servlet extends HttpServlet {
     public static final String COMPULSORY_PARAM_NAME = "word";
     public static final String HOMEWORK_PARAM_NAME = "size";
     private static final Logger LOGGER = LogManager.getLogger(Lab2Servlet.class);
-
-    private static final String WORDLIST_PATH = "C:\\Users\\adria\\Desktop\\Java-Technologies-Labs\\Lab1\\src\\main\\resources\\wordlist.txt";
+    private static final String WORDLIST_PATH = "C:\\Users\\adria\\Desktop\\Java-Technologies-Labs\\Lab2\\src\\main\\resources\\wordlist.txt";
     private static final List<String> dictionary = extractDictionary();
 
     private static List<String> extractDictionary() {
@@ -53,7 +55,7 @@ public class Lab2Servlet extends HttpServlet {
         }
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Enumeration<String> params = request.getParameterNames();
         List<String> paramsList = new ArrayList<>();
         while (params.hasMoreElements()) {
@@ -61,41 +63,14 @@ public class Lab2Servlet extends HttpServlet {
             paramsList.add(currentParam + " - " + request.getParameter(currentParam));
         }
         LOGGER.info("HTTP method: {}, IP address: {}, user-agent: {}, client language(s): {}, parameters: {}", request.getMethod(), request.getRemoteAddr(), request.getHeader("User-Agent"), request.getHeader("Accept-Language"), paramsList);
+
+        response.setContentType("text/html");
+
         String word = request.getParameter(COMPULSORY_PARAM_NAME);
+
         int size = Integer.parseInt(request.getParameter(HOMEWORK_PARAM_NAME));
         if (size > word.length())
             size = word.length();
-        if (request.getHeader("Accept").contains("text/html")) {
-            response.setContentType("text/html");
-
-            PrintWriter out = response.getWriter();
-            out.println("<html><body>");
-            out.println("<h1>" + "Compulsory" + "</h1>");
-            out.println("</br>");
-            out.println("<ol>");
-            for (Character c : splitAndOrderLetters(word)) {
-                out.println("<li><h2>" + c + "</h2></li>");
-            }
-            out.println("</ol>");
-            out.println("</br>");
-            out.println("<h1>" + "Homework" + "</h1>");
-            out.println("</br>");
-
-            Set<String> result = getPermutations(word, size);
-            out.println("<h3>" + "All the permutations of length " + size + " of word " + word + " are: " + result + "</h3>");
-            out.println("<br/>");
-            result = result.stream().map(String::toUpperCase).collect(Collectors.toSet());
-            result.retainAll(dictionary);
-            out.println("<h2>" + "Out of all these, the recognized valid words which match the dictionary are: " + result + "</h2>");
-            out.println("</body></html>");
-        } else {
-            response.setContentType("text/plain");
-            PrintWriter out = response.getWriter();
-            out.println(getPermutations(word, size));
-        }
-    }
-
-    private Set<String> getPermutations(String word, int size) {
         Set<String> result = new HashSet<>();
         if (size == 0) {
             for (int i = 1; i <= word.length(); i++) {
@@ -104,15 +79,10 @@ public class Lab2Servlet extends HttpServlet {
         } else {
             permutation(word, size, result);
         }
-        return result;
-    }
-
-    private List<Character> splitAndOrderLetters(String word) {
-        List<Character> letters = new ArrayList<>();
-        for (int i = 0; i < word.length(); i++) {
-            letters.add(word.charAt(i));
-        }
-        return letters;
+        result = result.stream().map(String::toUpperCase).collect(Collectors.toSet());
+        request.setAttribute("permutationList", result);
+        result.retainAll(dictionary);
+        request.getRequestDispatcher("result.jsp").forward(request, response);
     }
 
     public void destroy() {

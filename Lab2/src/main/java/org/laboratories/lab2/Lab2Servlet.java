@@ -1,5 +1,6 @@
-package org.laboratories.lab1;
+package org.laboratories.lab2;
 
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,11 +12,13 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@WebServlet(name = "lab1Servlet", value = "/my-servlet")
-public class Lab1Servlet extends HttpServlet {
+@WebServlet(name = "lab2Servlet", value = "/my-other-servlet")
+public class Lab2Servlet extends HttpServlet {
+
     public static final String COMPULSORY_PARAM_NAME = "word";
     public static final String HOMEWORK_PARAM_NAME = "size";
-    private static final Logger LOGGER = LogManager.getLogger(Lab1Servlet.class);
+    private static final Logger LOGGER = LogManager.getLogger(Lab2Servlet.class);
+
     private static final String WORDLIST_PATH = "C:\\Users\\adria\\Desktop\\Java-Technologies-Labs\\Lab1\\src\\main\\resources\\wordlist.txt";
     private static final List<String> dictionary = extractDictionary();
 

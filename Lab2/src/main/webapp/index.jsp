@@ -8,7 +8,7 @@
 <h1><%= "Java Technologies - Lab 2 Input Page" %>
 </h1>
 <br/>
-<form action="my-servlet" method="GET">
+<form action="my-other-servlet" method="GET">
     Please insert a word:
     <label>
         <input type="text" name="word"/>

@@ -1,0 +1,26 @@
+package org.laboratories.lab2.filters;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.HttpFilter;
+import jakarta.servlet.http.HttpServletResponse;
+import org.laboratories.lab2.utils.SimpleResponseWrapper;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+@WebFilter(urlPatterns = {"/*"}, filterName = "WrapperFilter")
+public class WrapperFilter extends HttpFilter {
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+        SimpleResponseWrapper wrapper = new SimpleResponseWrapper((HttpServletResponse) res);
+        chain.doFilter(req, wrapper);
+        String content = wrapper.toString();
+        content += "<p> WrapperFilter was here! </p>";
+        PrintWriter out = res.getWriter();
+        out.write(content);
+    }
+}

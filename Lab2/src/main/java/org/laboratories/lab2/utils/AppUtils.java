@@ -11,7 +11,6 @@ public class AppUtils {
     public static final String COMPULSORY_PARAM_NAME = "word";
     public static final String HOMEWORK_PARAM_NAME = "size";
     private static final String WORDLIST_PATH = "C:\\Users\\adria\\Desktop\\Java-Technologies-Labs\\Lab2\\src\\main\\resources\\wordlist.txt";
-
     public static final List<String> dictionary = extractDictionary();
 
     private static List<String> extractDictionary() {

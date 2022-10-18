@@ -15,7 +15,11 @@
     </label>
     Size (numbers only):
     <label>
-        <input type="number" name="size" value="0" />
+        <input type="number" name="size" value="0"/>
+    </label>
+    What's your name?:
+    <label>
+        <input type="text" name="userName"/>
     </label>
     <input type="submit" value="Submit"/>
 </form>

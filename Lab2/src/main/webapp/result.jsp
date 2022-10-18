@@ -10,6 +10,21 @@
 </h1>
 <br/>
 <%
+    Cookie[] cookies = request.getCookies();
+    String name = "IntelliJ User";
+    if (cookies != null) {
+        for (Cookie c : cookies) {
+            if (c.getName().equals("userName")) {
+                name = c.getValue();
+            }
+        }
+    }
+%>
+<h2>
+    <%= "[COOKIE] Welcome back, " + name + "!" %>
+</h2>
+<br/>
+<%
     Set<String> permutations = (Set<String>) request.getAttribute("permutationList");
 %>
 <h2><%= "Java Technologies - Result Table" %>

@@ -1,31 +1,34 @@
 package com.example.lab3.entities;
 
-import java.time.OffsetDateTime;
+import java.io.Serializable;
 
-public class Team {
-    private City city;
-    private OffsetDateTime foundingDate;
+public class Team implements Serializable {
+    private String city;
+    private String foundingDate;
     private String name;
 
-    public Team(City city, OffsetDateTime foundingDate, String name) {
+    public Team() {
+    }
+
+    public Team(String city, String foundingDate, String name) {
         this.city = city;
         this.foundingDate = foundingDate;
         this.name = name;
     }
 
-    public City getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(City city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
-    public OffsetDateTime getFoundingDate() {
+    public String getFoundingDate() {
         return foundingDate;
     }
 
-    public void setFoundingDate(OffsetDateTime foundingDate) {
+    public void setFoundingDate(String foundingDate) {
         this.foundingDate = foundingDate;
     }
 
@@ -39,10 +42,6 @@ public class Team {
 
     @Override
     public String toString() {
-        return "Team{" +
-                "city=" + city +
-                ", foundingDate=" + foundingDate +
-                ", name='" + name + '\'' +
-                '}';
+        return "[Team " + name + "] City of the team is " + city + ", and the founding date is " + foundingDate + "!";
     }
 }

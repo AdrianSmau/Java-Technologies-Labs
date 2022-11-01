@@ -1,1 +1,1 @@
-Implemented compulsory component
+Implemented compulsory component and the majority of homework component

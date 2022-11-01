@@ -1,17 +1,17 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="Lab3:war exploded">
-    <output-path>$PROJECT_DIR$/target/Lab3-1.0-SNAPSHOT</output-path>
+  <artifact type="exploded-war" name="Lab4:war exploded">
+    <output-path>$PROJECT_DIR$/target/Lab4-1.0-SNAPSHOT</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
-        <module>Lab3</module>
+        <module>Lab4</module>
         <packaging>war</packaging>
       </options>
     </properties>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="Lab3" />
+          <element id="module-output" name="Lab4" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: com.sun.faces:jsf-api:2.2.9" />
@@ -21,12 +21,15 @@
           <element id="library" level="project" name="Maven: org.webjars.npm:primeflex:3.2.0" />
           <element id="library" level="project" name="Maven: org.postgresql:postgresql:42.3.7" />
           <element id="library" level="project" name="Maven: org.checkerframework:checker-qual:3.5.0" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-dbcp2:2.7.0" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-pool2:2.7.0" />
+          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/Lab3-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/target/Lab4-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="Lab3/web/Web" />
+      <element id="javaee-facet-resources" facet="Lab4/web/Web" />
     </root>
   </artifact>
 </component>

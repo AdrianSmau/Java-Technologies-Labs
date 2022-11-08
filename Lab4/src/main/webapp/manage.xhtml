@@ -4,24 +4,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
     <h:head>
-        <h1>
-            Java Technologies - Lab 3 - Team Manager Hub!
-        </h1>
+        <ui:include src="header.xhtml">
+        </ui:include>
     </h:head>
     <h2>
         <h:outputText value="#{msg['welcome.jsf']}"/>
     </h2>
-    <p:commandButton value="Add" type="button" onclick="PF('dlg3').show()"/>
-    <h:form>
-        Language:
-        <p:selectOneMenu id="locale" value="#{Language.localeCode}">
-            <f:selectItems value="#{Language.countriesInMap}"/>
-        </p:selectOneMenu>
-        <p:commandButton partialSubmit="false" value="Change" styleClass="mr-2" action="#{Language.changeLocale()}"/>
-    </h:form>
     <h:form>
         <div class="card">
             <p:dataTable var="team" value="#{TeamsService.getTeams()}">
@@ -40,26 +32,7 @@
             </p:dataTable>
         </div>
     </h:form>
-    <p:dialog header="Header" widgetVar="dlg3" minHeight="150" width="750" showEffect="fade">
-        <div class="card">
-            <h:form>
-                <p:panel header="Form">
-                    <h:panelGrid columns="4" cellpadding="5" styleClass="mb-3">
-                        <h:outputLabel for="team-name" value="Insert desired Team Name:"/>
-                        <p:inputText id="team-name" value="#{TeamsService.chosenName}" required="true"
-                                     label="Team Name"/>
-                        <h:outputLabel for="founding-date" value="Insert desired Founding Date:"/>
-                        <p:inputText type="date" id="founding-date" value="#{TeamsService.chosenFoundingDate}"
-                                     required="true" pattern="dd-MMM-yyyy"/>
-                        <h:outputLabel for="city-name" value="Insert desired City Name:"/>
-                        <p:inputText id="city-name" value="#{TeamsService.chosenCity}" required="true"
-                                     label="City Name"/>
-                    </h:panelGrid>
-                    <p:commandButton partialSubmit="false" value="Add" styleClass="mr-2"
-                                     action="#{TeamsService.addTeamAndCity()}"/>
-                </p:panel>
-            </h:form>
-        </div>
-    </p:dialog>
+    <ui:include src="footer.xhtml">
+    </ui:include>
 </f:view>
 </html>

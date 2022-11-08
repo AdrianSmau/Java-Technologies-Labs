@@ -1,1 +1,1 @@
-Implemented compulsory part of Lab4
+Implemented compulsory and homework parts of Lab4

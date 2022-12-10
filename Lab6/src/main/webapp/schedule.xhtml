@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:head>
+        <ui:include src="header3.xhtml">
+        </ui:include>
+    </h:head>
+    <h2>
+        <h:outputText value="#{msg['welcome.jsf']}"/>
+    </h2>
+    <div class="card">
+        <h:form>
+            <p:panel header="Form">
+                <h:panelGrid columns="4" cellpadding="5" styleClass="mb-3">
+                    <h:outputLabel for="team-1-name" value="Insert Team 1 name:"/>
+                    <p:inputText id="team-1-name" value="#{ScheduleController.team1Name}" required="true"
+                                 label="Team Name"/>
+                    <h:outputLabel for="team-2-name" value="Insert Team 2 name:"/>
+                    <p:inputText id="team-2-name" value="#{ScheduleController.team2Name}" required="true"
+                                 label="Team Name"/>
+                    <h:outputLabel for="week-number" value="Insert Week number:"/>
+                    <p:spinner type="number" id="week-number" value="#{ScheduleController.weekNumber}"
+                               required="true"/>
+                    <h:outputLabel for="start-hour" value="Insert Starting hour:"/>
+                    <p:spinner type="number" id="start-hour" value="#{ScheduleController.startHour}"
+                               required="true"/>
+                    <h:outputLabel for="end-hour" value="Insert Ending Hour:"/>
+                    <p:spinner type="number" id="end-hour" value="#{ScheduleController.endHour}"
+                               required="true"/>
+                    <h:outputLabel value="Do you want Retour (date chosen randomly):"/>
+                    <p:selectBooleanCheckbox value="#{ScheduleController.retourWanted}" itemLabel="Basic"/>
+                </h:panelGrid>
+                <p:commandButton partialSubmit="false" value="Schedule" styleClass="mr-2"
+                                 action="#{ScheduleController.addMatch()}"/>
+            </p:panel>
+        </h:form>
+    </div>
+    <ui:include src="footer.xhtml">
+    </ui:include>
+</f:view>
+</html>

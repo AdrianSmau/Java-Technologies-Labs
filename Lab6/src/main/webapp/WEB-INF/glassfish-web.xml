@@ -1,0 +1,6 @@
+<glassfish-web-app error-url="">
+    <resource-ref>
+        <res-ref-name>jdbc/demo</res-ref-name>
+        <jndi-name>jdbc/demo</jndi-name>
+    </resource-ref>
+</glassfish-web-app>

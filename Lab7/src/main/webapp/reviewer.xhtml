@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:view>
+    <h:head>
+        <h1>Lab7 Reviewer's Page</h1>
+    </h:head>
+    <h:form>
+        <div class="card">
+            <p:dataTable var="document" value="#{DocumentController.getDocuments()}">
+                <p:column headerText="ID">
+                    <h:outputText value="#{document.id}"/>
+                </p:column>
+                <p:column headerText="Registration Number">
+                    <h:outputText value="#{document.registrationNumber}"/>
+                </p:column>
+                <p:column headerText="Name">
+                    <h:outputText value="#{document.name}"/>
+                </p:column>
+                <p:column headerText="Content">
+                    <h:outputText value="#{document.content}"/>
+                </p:column>
+                <p:column headerText="Authors">
+                    <h:outputText value="#{document.authors}"/>
+                </p:column>
+                <p:column>
+                    <p:commandButton icon="pi pi-trash" action="#{DocumentController.deleteDocument(document.id)}"/>
+                </p:column>
+            </p:dataTable>
+        </div>
+    </h:form>
+    <h:form>
+        <div class="card">
+            <p:panel header="Form">
+                <h:panelGrid columns="4" cellpadding="5" styleClass="mb-3">
+                    <h:outputLabel for="doc-id" value="Insert ID of Document to be updated:"/>
+                    <p:inputNumber id="doc-id" value="#{DocumentController.documentId}"
+                                   label="Document ID"/>
+                    <h:outputLabel for="doc-name" value="Insert new Name:"/>
+                    <p:inputText id="doc-name" value="#{DocumentController.documentName}" label="Document Name"/>
+                    <h:outputLabel for="doc-content" value="Insert new Content:"/>
+                    <p:inputText id="doc-content" value="#{DocumentController.documentContent}"
+                                 label="Document Content"/>
+                <p:commandButton partialSubmit="false" value="Update" styleClass="mr-2"
+                                 action="#{DocumentController.updateDocument()}"/>
+                <p:commandButton partialSubmit="false" action="#{UserController.goToLogin()}" styleClass="mr-2"
+                                 value="Logout"/>
+                </h:panelGrid>
+            </p:panel>
+        </div>
+    </h:form>
+</f:view>
+</html>

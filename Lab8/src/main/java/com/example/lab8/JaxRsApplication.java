@@ -7,7 +7,7 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.Set;
 
-@ApplicationPath("resources")
+@ApplicationPath("/rest")
 @ApplicationScoped
 public class JaxRsApplication extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {

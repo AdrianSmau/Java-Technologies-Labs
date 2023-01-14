@@ -2,17 +2,13 @@ package com.example.lab8.controllers;
 
 import com.example.lab8.entities.Document;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.List;
 
-@Path("/jax-rest")
-@Named("JaxRsController")
-@ApplicationScoped
+@Path("/api")
 public class JaxRsController {
     @Inject
     private DocumentController documentController;

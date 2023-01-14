@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -92,44 +93,15 @@ public class DocumentController implements BusinessHoursRestrictedSubmission {
         }
     }
 
-    @Loggable
-    public void addDocumentJax(Document document) throws IOException {
+    public void addDocumentJax(Document document) {
         if (document.getContent() == null || document.getContent().length() < 1 || document.getName() == null || document.getName().length() < 1) {
             System.err.println("Invalid Document!");
             return;
         }
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        Cookie[] cookies = request.getCookies();
-        String username = null;
         String[] authorsString = document.getAuthors().split(",");
-        if (cookies != null && cookies.length > 0) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("currentUsername")) {
-                    username = cookie.getValue();
-                }
-            }
-        }
         List<String> authors = new ArrayList<>();
-        Optional<User> optUser = userRepository.getByUsername(username);
-        if (optUser.isPresent()) {
-            authors.add(username);
-            if (optUser.get().getRole() != UserRoles.AUTHOR) {
-                System.err.println("You are not logged in or you are not an Author!");
-                FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-                return;
-            }
-            for (String authorUsername : authorsString) {
-                if (userRepository.getByUsername(authorUsername).isPresent()) {
-                    authors.add(authorUsername);
-                }
-                documentRepository.save(new Document(document.getName(), String.join(",", authors), document.getContent(), document.getRegistrationNumber()));
-                subject.documentAdded(document.getName());
-                FacesContext.getCurrentInstance().getExternalContext().redirect("author.xhtml");
-            }
-        } else {
-            System.err.println("You are not logged in or you are not an Author!");
-            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-        }
+        Collections.addAll(authors, authorsString);
+        documentRepository.save(new Document(document.getName(), String.join(",", authors), document.getContent(), document.getRegistrationNumber()));
     }
 
     public void deleteDocument(int id) throws IOException {
@@ -158,6 +130,10 @@ public class DocumentController implements BusinessHoursRestrictedSubmission {
         FacesContext.getCurrentInstance().getExternalContext().redirect("reviewer.xhtml");
     }
 
+    public void deleteDocumentJax(int id) {
+        documentRepository.delete(id);
+    }
+
     public void updateDocument() throws IOException {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         Cookie[] cookies = request.getCookies();
@@ -184,30 +160,8 @@ public class DocumentController implements BusinessHoursRestrictedSubmission {
         FacesContext.getCurrentInstance().getExternalContext().redirect("reviewer.xhtml");
     }
 
-    public void updateDocumentJax(Document document) throws IOException {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        Cookie[] cookies = request.getCookies();
-        String username = null;
-        if (cookies != null && cookies.length > 0) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("currentUsername")) {
-                    username = cookie.getValue();
-                }
-            }
-        }
-        if (username != null && username.length() > 0) {
-            Optional<User> optUser = userRepository.getByUsername(username);
-            if (optUser.isPresent() && optUser.get().getRole() == UserRoles.REVIEWER) {
-                documentRepository.update(document.getName(), document.getContent(), document.getId());
-            } else {
-                System.err.println("No permissions to do such thing!");
-            }
-        } else {
-            System.err.println("Log in before doing so!");
-            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-            return;
-        }
-        FacesContext.getCurrentInstance().getExternalContext().redirect("reviewer.xhtml");
+    public void updateDocumentJax(Document document) {
+        documentRepository.update(document.getName(), document.getContent(), document.getId());
     }
 
     public List<Document> getDocuments() {

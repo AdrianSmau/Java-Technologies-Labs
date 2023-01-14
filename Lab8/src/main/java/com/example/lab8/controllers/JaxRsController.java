@@ -5,7 +5,6 @@ import com.example.lab8.entities.Document;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.io.IOException;
 import java.util.List;
 
 @Path("/api")
@@ -27,18 +26,18 @@ public class JaxRsController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void add(Document document) throws IOException {
+    public void add(Document document) {
         documentController.addDocumentJax(document);
     }
 
     @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(Document document) throws IOException {
+    public void update(Document document) {
         documentController.updateDocumentJax(document);
     }
 
     @DELETE
-    public void delete(@QueryParam("id") int id) throws IOException {
-        documentController.deleteDocument(id);
+    public void delete(@QueryParam("id") int id) {
+        documentController.deleteDocumentJax(id);
     }
 }

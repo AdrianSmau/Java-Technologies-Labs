@@ -1,0 +1,22 @@
+package com.example.lab9;
+
+import com.example.lab9.controllers.JaxRsController;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+import java.util.Set;
+
+@ApplicationPath("/rest")
+@ApplicationScoped
+public class JaxRsApplication extends Application {
+    private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(JaxRsController.class);
+    }
+
+    public Set<Class<?>> getClasses() {
+        Set<Class<?>> resources = new java.util.HashSet<>();
+        addRestResourceClasses(resources);
+        return resources;
+    }
+}

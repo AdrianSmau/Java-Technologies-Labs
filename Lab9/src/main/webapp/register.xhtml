@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:view>
+    <h:head>
+        <h1>Lab9 Register Page</h1>
+    </h:head>
+    <div class="card">
+        <h:form>
+            <p:panel>
+                <h:panelGrid columns="2" cellpadding="5" styleClass="mb-3">
+                    <h:outputLabel value="Username" for="username"/>
+                    <p:inputText id="username" value="#{UserController.username}"/>
+
+                    <h:outputLabel value="Password" for="password"/>
+                    <p:password id="password" value="#{UserController.password}"/>
+
+                    <h:outputLabel value="Email" for="email"/>
+                    <p:inputText id="email" value="#{UserController.email}"/>
+
+                    <h:outputLabel value="User Role" for="user-role"/>
+                    <p:selectOneMenu id="user-role" value="#{UserController.role}">
+                        <f:selectItems value="#{UserController.getUserRoles()}"/>
+                    </p:selectOneMenu>
+
+                    <p:commandButton partialSubmit="false" action="#{UserController.register()}" styleClass="mr-2"
+                                     value="Register"/>
+                    <p:commandButton action="#{UserController.goToLogin()}" styleClass="mr-2"
+                                     value="Go To Login"/>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </div>
+</f:view>
+</html>
